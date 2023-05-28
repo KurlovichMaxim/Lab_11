@@ -28,21 +28,27 @@ import com.topic3.android.reddit.domain.model.PostModel
 import com.topic3.android.reddit.domain.model.PostModel.Companion.DEFAULT_POST
 
 @Composable
-fun TextPost(post: PostModel) {
-    Post(post) {
-        TextContent(post.text)
-    }
+fun TextPost(
+    post: PostModel,
+    onJoinButtonClick: (Boolean) -> Unit = {}
+) {
+    Post(post, onJoinButtonClick) { TextContent(post.text) }
 }
 
 @Composable
-fun ImagePost(post: PostModel) {
-    Post(post) {
-        ImageContent(post.image ?: R.drawable.compose_course)
-    }
+fun ImagePost(
+    post: PostModel,
+    onJoinButtonClick: (Boolean) -> Unit = {}
+) {
+    Post(post, onJoinButtonClick) { ImageContent(post.image !!) }
 }
 
 @Composable
-fun Post(post: PostModel, content: @Composable () -> Unit = {}) {
+fun Post(
+    post: PostModel,
+    onJoinButtonClick: (Boolean) -> Unit = {},
+    content: @Composable () -> Unit = {}
+) {
     Card(shape = MaterialTheme.shapes.large) {
         Column(
             modifier = Modifier.padding(
